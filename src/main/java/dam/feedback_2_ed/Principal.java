@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import model.Arbitro;
+import model.Federado;
 
 /**
  *
@@ -302,7 +303,7 @@ public class Principal {
 						System.out.println("Introduce el número del jugador que quieres registrar:");
 						numJugador = lecturaNum();
 						if (numJugador >= 0 && numJugador < Inscripcion.getJugadoresInscritos().size()) {
-							Registro.registarJugador(Inscripcion.getJugadoresInscritos().get(numJugador));
+							Federado.registrarJugador(numJugador);
 							numJugadorValido = true;
 						} else {
 							System.out.println("No se encuentra el jugador, vuelve a seleccionar");
@@ -333,7 +334,7 @@ public class Principal {
 						System.out.println("Introduce el número del equipo que quieres registrar:");
 						numEquipo = lecturaNum();
 						if (numEquipo >= 0 && numEquipo < Inscripcion.getEquiposInscritos().size()) {
-							Registro.registrarEquipo(Inscripcion.getEquiposInscritos().get(numEquipo));
+							Federado.registrarEquipo(numEquipo);
 							numEquipoValido = true;
 						} else {
 							System.out.println("No se encuentra el equipo, vuelve a seleccionar");
@@ -404,19 +405,15 @@ public class Principal {
 					fecha = lecturaCad();
 					
 					partido = new Partido(equipo1, equipo2, campo, fecha);
-					Calendario.publicarPartido(partido);
+					Federado.anotarCalendario(partido);
 					mostrarMenuFederado();
 					break;
 				case 4:
 					// anotar en registro
-					if (Calendario.getJugados().size() > 0) {
-							for (int i = 0; i < Calendario.getJugados().size(); i++) {
-								Registro.registrarPartidoJugado(Calendario.getJugados().get(i));
-							}
-						}
-					if (Calendario.getJugados().size() == Registro.partidosJugados().size()) {
-						Calendario.getJugados().clear();
-						System.out.println("Se han registrado todos los partidos jugados");
+					if (Federado.anotarRegistro()) {
+						System.out.println("Todos los partidos han sido anotados en registro.\nYa se pueden consultar");
+					} else {
+						System.out.println("No hay partidos que registrar, deben jugarse antes.");
 					}
 					mostrarMenuFederado();
 					break;

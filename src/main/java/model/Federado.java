@@ -5,12 +5,15 @@
  */
 package model;
 
+import utils.Inscripcion;
+import utils.Registro;
+
 /**
  *
  * @author rulo
  */
-public class Federado extends Usuario{
-	
+public class Federado extends Usuario {
+
 	private int numFederado;
 
 	public Federado(int numFederado, String nombre, String apellidos, int telefono) {
@@ -25,28 +28,32 @@ public class Federado extends Usuario{
 	public void setNumFederado(int numFederado) {
 		this.numFederado = numFederado;
 	}
-	
-	public void registrarJugador(Jugador jugador) {
-		// Comprobar si el jugador está inscrito
-		// Comprobar que no esté ya registrado
-		// Registrar
+
+	public static void registrarJugador(int numJugador) {
+		Registro.registarJugador(Inscripcion.getJugadoresInscritos().get(numJugador));
+	}
+
+	public static void registrarEquipo(int numEquipo) {
+		Registro.registrarEquipo(Inscripcion.getEquiposInscritos().get(numEquipo));
+	}
+
+	public static void anotarCalendario(Partido partido) {
+		Calendario.publicarPartido(partido);
+	}
+
+	public static boolean anotarRegistro() {
+		boolean realizado = false;
 		
+		if (Calendario.getJugados().size() > 0) {
+			for (int i = 0; i < Calendario.getJugados().size(); i++) {
+				Registro.registrarPartidoJugado(Calendario.getJugados().get(i));
+			}
+			realizado = true;
+		}
+		if (Calendario.getJugados().size() == Registro.partidosJugados().size()) {
+			Calendario.getJugados().clear();
+		}
 		
-		
-		/**
-		 * 
-		 * 
-		 * HAY QUE MIRAR SI HAY MÉTODOS QUE SE DEBEN PASAR A ALGUNAS CLASES
-		 * 
-		 * POR EJEMPLO LOS QUE HACE EL FEDERADO EN SU MENÚ
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
-		
-		
-		
-		
+		return realizado;
 	}
 }
