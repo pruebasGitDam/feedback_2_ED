@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 
 import model.Arbitro;
@@ -10,10 +5,6 @@ import model.Equipo;
 import model.Jugador;
 import java.util.ArrayList;
 
-/**
- *
- * @author rulo
- */
 public class Inscripcion {
 
 	private static ArrayList<Jugador> jugadoresInscritos = new ArrayList<>();

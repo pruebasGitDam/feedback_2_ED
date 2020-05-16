@@ -13,10 +13,6 @@ import java.util.Scanner;
 import model.Arbitro;
 import model.Federado;
 
-/**
- *
- * @author rulo
- */
 public class Principal {
 
 	public static void main(String[] args) {
@@ -468,14 +464,6 @@ public class Principal {
 					mostrarMenuArbitro();
 					break;
 				case 2:
-					/**
-					 * Rellenar el acta de un partido que esté pendiente.
-					 * Para ello se mostrarán los partidos que estan en la lista de pendientes
-					 * se seleccionará uno y se rellenaran los siguientes datos:
-					 * jugado, goles E1, goles E2, notas, el objeto arbitro
-					 * 
-					 * Al hacer esto, el partido tiene que cambiar de calendario.proxPartidos a Calendario.jugados
-					 */
 					int numArbitro;
 					boolean numArbitroValido = false;
 					
