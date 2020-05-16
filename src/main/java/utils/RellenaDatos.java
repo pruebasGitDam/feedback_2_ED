@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dam.feedback_2_ed;
+package utils;
 
+import model.Equipo;
+import model.Jugador;
 import java.util.ArrayList;
 
 /**

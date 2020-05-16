@@ -5,6 +5,9 @@
  */
 package dam.feedback_2_ed;
 
+import model.Jugador;
+import model.Equipo;
+import utils.Inscripcion;
 import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;

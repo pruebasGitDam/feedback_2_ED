@@ -1,5 +1,12 @@
 package dam.feedback_2_ed;
 
+import model.Equipo;
+import model.Calendario;
+import model.Jugador;
+import model.Partido;
+import utils.Inscripcion;
+import utils.Registro;
+import utils.RellenaDatos;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;

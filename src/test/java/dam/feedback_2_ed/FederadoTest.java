@@ -5,6 +5,8 @@
  */
 package dam.feedback_2_ed;
 
+import model.Federado;
+import model.Jugador;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
