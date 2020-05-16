@@ -10,6 +10,7 @@ import utils.RellenaDatos;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import model.Arbitro;
 
 /**
  *
@@ -378,11 +379,12 @@ public class Principal {
 						} else {
 							System.out.println("El equipo no es válido, vuelve a seleccionar");
 						}
-					} while (numEquipo1Valido);
+					} while (!numEquipo1Valido);
 					
 					System.out.println("Selecciona el equipo que juega en campo contrario:");
 					
 					for (int i = 0; i < Registro.getEquiposRegistrados().size(); i++) {
+						if (i != numEquipo1)
 						System.out.println("[" + i + "] " + Registro.getEquiposRegistrados().get(i).getNombre());
 					}
 					
@@ -394,7 +396,7 @@ public class Principal {
 						} else {
 							System.out.println("El equipo no es válido, vuelve a seleccionar");
 						}
-					} while (numEquipo2Valido);
+					} while (!numEquipo2Valido);
 					
 					System.out.println("Introduce el campo donde se jugará el partido");
 					campo = lecturaCad();
@@ -414,6 +416,7 @@ public class Principal {
 						}
 					if (Calendario.getJugados().size() == Registro.partidosJugados().size()) {
 						Calendario.getJugados().clear();
+						System.out.println("Se han registrado todos los partidos jugados");
 					}
 					mostrarMenuFederado();
 					break;
@@ -433,8 +436,8 @@ public class Principal {
 		do {
 			System.out.println("¿Qué quieres hacer?");
 			System.out.println(""
-					+ "[1] Inscribir árbitro en el campeonato"
-					+ "[2] Rellenar acta de partido (el partido cambiará a 'jugado')"
+					+ "[1] Inscribir árbitro en el campeonato\n"
+					+ "[2] Rellenar acta de partido (el partido cambiará a 'jugado')\n"
 					+ "[2] Volver al menú principal");
 
 			opcion = lecturaNum();
@@ -442,7 +445,30 @@ public class Principal {
 			switch (opcion) {
 				case 1:
 					// Inscribir un árbitro
-					//Arbitro arbitro = new Arbitro(colegiado, nombre, apellidos, telefo);
+					
+					int colegiado;
+					String nombre;
+					String apellidos;
+					int telefono;
+					
+					System.out.println("Introduce tus datos para darte de alta:");
+					
+					System.out.println("Número de colegiado");
+					colegiado = lecturaNum();
+					
+					System.out.println("Nombre");
+					nombre = lecturaCad();
+					
+					System.out.println("Apellidos");
+					apellidos = lecturaCad();
+					
+					System.out.println("Teléfono");
+					telefono = lecturaNum();
+					
+					model.Arbitro arbitro = new Arbitro(colegiado, nombre, apellidos, telefono);
+					utils.Inscripcion.inscribeArbitro(arbitro);
+					
+					mostrarMenuArbitro();
 					break;
 				case 2:
 					/**
@@ -453,7 +479,58 @@ public class Principal {
 					 * 
 					 * Al hacer esto, el partido tiene que cambiar de calendario.proxPartidos a Calendario.jugados
 					 */
+					int numArbitro;
+					boolean numArbitroValido = false;
 					
+					int numPartido;
+					boolean numPartidoValido = false;
+					
+					int golesE1;
+					int golesE2;
+					String notas;
+					
+					System.out.println("¿Qué árbitro a asistido el partido?");
+					for (int i = 0; i < Inscripcion.getArbitrosInscritos().size(); i++) {
+						System.out.println("[" + i + "] " + Inscripcion.getArbitrosInscritos().get(i).getNombre());
+					}
+					
+					do {						
+						numArbitro = lecturaNum();
+						if (numArbitro >= 0 && numArbitro < Inscripcion.getArbitrosInscritos().size()) {
+							numArbitroValido = true;
+						} else {
+							System.out.println("Árbitro no encontrado, vuelve a seleccionar");
+						}
+					} while (!numArbitroValido);
+					
+					System.out.println("¿Qué partido ha asistido " + Inscripcion.getArbitrosInscritos().get(numArbitro).getNombre() + "?");
+					for (int i = 0; i < Calendario.getCalendario().size(); i++) {
+						System.out.println("[" + i + "] " + Calendario.getCalendario().get(i).getEquipo1().getNombre()
+								+ " vs "
+								+ Calendario.getCalendario().get(i).getEquipo2().getNombre());
+					}
+					
+					do {						
+						numPartido = lecturaNum();
+						if (numPartido >= 0 && numPartido < Calendario.getCalendario().size()) {
+							numPartidoValido = true;
+						} else {
+							System.out.println("Partido no encontrado, vuelve a selaccionar");
+						}
+					} while (!numPartidoValido);
+					
+					System.out.println("Introduce los goles de " + Calendario.getCalendario().get(numPartido).getEquipo1().getNombre());
+					golesE1 = lecturaNum();
+					
+					System.out.println("Introduce los goles de " + Calendario.getCalendario().get(numPartido).getEquipo2().getNombre());
+					golesE2 = lecturaNum();
+					
+					System.out.println("Redacta las observaciones del partido");
+					notas = lecturaCad();
+					
+					Arbitro.actaDePartido(Calendario.getCalendario().get(numPartido), Inscripcion.getArbitrosInscritos().get(numArbitro), golesE1, golesE2, notas);
+					
+					mostrarMenuArbitro();
 					break;
 				case 3:
 					mostrarMenuInicial();

@@ -26,4 +26,14 @@ public class Arbitro extends Usuario{
 		this.numColegiado = numColegiado;
 	}
 	
+	public static void actaDePartido(Partido partido, Arbitro arbitro, int golesE1, int golesE2, String notas) {
+		partido.setArbitro(arbitro);
+		partido.setJugado(true);
+		partido.setGolesEquipo1(golesE1);
+		partido.setGolesEquipo2(golesE2);
+		partido.setNotas(notas);
+		
+		Calendario.actaDePartido(partido);
+	}
+	
 }

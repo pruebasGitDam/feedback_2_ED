@@ -22,6 +22,14 @@ public class Inscripcion {
 
 	public Inscripcion() {
 	}
+	
+	public static void inscribeArbitro(Arbitro arbitro) {
+		if (!arbitroInscrito(arbitro)) {
+			arbitrosInscritos.add(arbitro);
+		} else {
+			System.out.println("Este colegiado ya está inscrito");
+		}
+	}
 
 	public static void inscribeJugador(Jugador jugador) {
 		if (!jugadorInscrito(jugador)) {
@@ -37,6 +45,10 @@ public class Inscripcion {
 		} else {
 			System.out.println("El equipo ya está inscrito");
 		}
+	}
+	
+	public static ArrayList<Arbitro> getArbitrosInscritos() {
+		return arbitrosInscritos;
 	}
 	
 	public static ArrayList<Jugador> getJugadoresInscritos() {
@@ -60,6 +72,18 @@ public class Inscripcion {
 				equiposInscritos.remove(i);
 			}
 		}
+	}
+	
+	public static boolean arbitroInscrito(Arbitro arbitro) {
+		boolean existe = false;
+		if (!arbitrosInscritos.isEmpty()) {
+			for (Arbitro a : arbitrosInscritos) {
+				if (a.getNumColegiado() == arbitro.getNumColegiado()) {
+					existe = true;
+				}
+			}
+		}
+		return existe;
 	}
 
 	public static boolean jugadorInscrito(Jugador jugador) {
